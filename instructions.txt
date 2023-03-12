@@ -1,0 +1,61 @@
+Tekijä: Severi Ruusumaa
+Opnumero: 283601
+S-posti: severi.ruusumqa@tuni.fi
+käyttäjätunnus: ruusumaa.
+
+Peliohjeet:
+
+Peli aloitetaan painamalla start new gam -näppäintä. Tällöin ajastin menee päälle ja nappulat drop tetromino, move left ja move right tulevat käyttökelpoisiksi. Peli-ikkunassa on kaksi lcdNumber-komponenttia, jotka yhdessä kuvaavat peliin kulunutta aikaa ajastimen avulla. Toinen kuvaa sekuntteja ja toinen minuutteja. Ajastin pysähtyy vasta, kun peli loppuu tai pelaaja painaa reset-nappulaa eli aika ei pysähdy, vaikka yhtään tetrominoa ei tipu. 
+
+Pudottaaksesi tetrominon paina drop tetromino -näppäintä. Tällöin tetromino ilmestyy ruudulle ja drop tetromino -näppäin menee pois käytöstä. Jokainen kentälle mahtunut tetromino lisää pelaajan pisteitä yhdellä ja pisteet päivittyvät lcdNumber-komponenttiin. 
+
+Tetrominoa voi liikutta ruudun verran move left ja move right nappuloilla napin kertomaan suuntaan. Jos tetromino on pelialueen reunan vieressä, liikuttamisnappi lukittuu, esimerkiksi move left -nappi menee lukkoon, jos tetromino on vasemman reunan vieressä. Nappi lukittuu myös silloin, jos jokin tetrominon neliöistä on toisen tetrominon neliön vieressä, sillä ne eivät voi mennä päällekäin. Tetrominon osuessa pohjaan tai alempaan terominoon se pysähty ja sitä ei voi enää liikuttaa. Pysähtyminen tapahtuu välittömästi jos liikutat tetronimon sivusuunnassa toisen päälle.
+
+Pudottaessa tetrominon se ilmestyy aina samaan lähtöpaikkaan. Lähtöpaikka on aina suurinpiirtein keskellä leveyssuunnassa ja ylhäällä korkeussuunnassa. Jokaisen tetrominon eri muodosta johtuen tetrimonien neliöiden alkupaikka vaihtelee. Jos tetromino ei mahdu kentälle, peli päättyy. Peli päättyy automaattisesti, jos viimeinen tetromino ei pääse putoamaan, kun se pelataan, koska silloin sitä seuraava tetromino ei enää mahdu kentälle. Kun peli päättyy, uutta peliä ei voi aloittaa ennen kuin kenttä on tyhjennetty reset-nappulalla.
+
+Reset-nappula lukitseen liikkumisnappulat, nollaa ajastimet ja pisteet sekä tyhjentää kentän. Voi käyttää milloin tahansa.
+
+Peli-ikkunassa on myös vaikeustasoa vaihtava nappi, jossa lukee sen hetkinen vaikeustaso. Vaikeustason muutos vaihtaa tetrominojen putoamisnopeutta.
+
+Close-näppäimellä peli suljetaan.
+
+
+
+Ohjelman toteutus:
+
+Ohjelma koostuu useasta funktiosta. Funktiot new_tetromino ja drop_tetromino ovat hyvin suuret. Koska tetrominot ovat kaikki erilaisia olisin voinut tehdä joko seitsemän funktiota, joissa tetromino luodaan tai tehdä sen yhteen funktioon. Päätin tässä tapauksessa luoda sen yhteen funktioon, sillä funktioita on valmiiksi jo todella monta. Drop_tetrominossa on myös monta vaihetta, jotka toteutin suoraan siihen, sillä niitä ei olisi voinut hyödyntää muissa funkioissa, ainakaan yksinkertaisesti. Lisäsin ohjelmaan monta muuttujaa mainwindows.hh tiedostoon, joista kerrotaan siellä tarkemmin. Lisäsin myös toisen timerin, joka seuraa peliin kulunutta aikaa. Pelin aika siis kuluu vaikka tetrominoa ei pudotettaisi. Tämän pystyy halutessa muuttamaan. Mainwindow.cpp:ssä kaikki on selitetty. 
+
+Päätin tallentaa jokaisen tetrominon vektoriin. Tetrominot koostuivat neljästä neliöstä, joten tallensin erikseen jokaisen neliön vektoriin. Näin niitä oli helppo tarkastella törmäystilanteissa ja pelialueen tyhjentämisessä.
+
+Päätin tässä ohjelmassa, että hyödynnän näppäinten lukitsemista, jos jotain ei voi suorittaa. Tällöin mahdolliset virhetilanteet jäävät minimaalisiksi. Ainoa huono puoli on se, että lukitukset täytyy tehdä usein ja eri funktioissa, sillä ne täytyvät myös avata tilanteista riippuen. Kuitenkin päätin, että, jos napit ovat lukittuja, kun niitä ei voi käyttää, ohjelma ei pääse ainakaan kaatumaan.
+
+Osa komennoista on hieman monimutkaisesti toteutettu, mutta projekti oli suuri ja monien asioiden muuttaminen myöhemmin olisi ollut hyvin aikaa vievää, joten näillä mennään.
+
+Ikkunaan liitin monta nappulaa ja labelia tekemään ikkunasta hieman nätimmän sekä lisäämään peliin ominaisuuksia. Yhtäkään toimintoa en tehnyt tietokoneen näppäimille, sillä niiden lukitsemisessa tuli ongelmia.
+
+
+
+Lisäominaisuudet:
+1. Pelissä kaikki 7 tetrominoa.
+
+5. Aika lasketaan ja se päivittyy ruudulle koko ajan.(Tässä huomiona, että aika ei pysähdy vaikka tetrominoa ei pudotettaisi. Tämän saa muutettua vaihtamalla lcdNumber-komponetteja päivittävän ajastimen samaan ajstimeen, mikä on päällä vain kun tetrominot putoavat.)
+
+6. Pisteet lasketaan ja päivitetään koko ajan ruudulle, kun ne lisääntyvät. Yhden pisteen saa jokaisesta tetrominosta, mikä pudotetaan kentälle.
+
+7. Eri vaikeustasoja
+
+9. Pelin päätyttyä tai pelin aikana pelin voi palauttaa alkupisteeseen reset-napilla ja pelin voi aloittaa uudelleen.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
